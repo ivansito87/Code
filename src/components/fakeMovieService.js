@@ -1,5 +1,5 @@
-[
-  {
+  const movies = [
+	{
 	"_id": "5b21ca3eeb7f6fbccd471815",
 	"title": "Terminator",
 	"genre": {
@@ -90,4 +90,6 @@
 	"numberInStock": "7",
 	"dailyRentalRate": "3.5"
   }
-]
+];
+
+export default movies;

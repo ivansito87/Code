@@ -1,10 +1,23 @@
 import React, {Component} from 'react';
-import {MDBCard, MDBCardBody, MDBCardHeader, MDBBtn, MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
-import "./fakeMovieService";
+import {MDBCard, MDBCardBody, MDBCardHeader, MDBBtn, MDBIcon, MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
+import movies from "./fakeMovieService.js";
 
 class TablePage extends Component {
 
-  state = {};
+  state = {
+    movies: movies
+  };
+
+  componentDidMount() {
+    console.log("movies", this.state.movies);
+  }
+
+  handleMovieRemove = (event, movie_id) => {
+    event.preventDefault();
+    const movies = this.state.movies.filter(movie => movie._id !== movie_id);
+    this.setState({ movies })
+  };
+
 
   render() {
     return (
@@ -32,35 +45,30 @@ class TablePage extends Component {
             </MDBBtn>
           </div>
         </MDBCardHeader>
-        <MDBCardBody cascade className="elevation-demo-surface">
+        <MDBCardBody className="elevation-demo-surface">
           <MDBTable hover>
             <MDBTableHead>
               <tr>
-                <th>#</th>
-                <th>First</th>
-                <th>Last</th>
-                <th>Handle</th>
+                <th>Number</th>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Stock</th>
+                <th>Rate</th>
+                <th>Delete</th>
               </tr>
             </MDBTableHead>
             <MDBTableBody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-              </tr>
+              {this.state.movies.map((_movie, index) => <tr key={_movie._id}>
+                <td>{index + 1}</td>
+                <td>{_movie.title}</td>
+                <td>{_movie.genre.name}</td>
+                <td>{_movie.numberInStock}</td>
+                <td>
+                  <MDBBtn tag="a" floating gradient="peach" href={" "} onClick={(event) => this.handleMovieRemove(event, _movie._id)}>
+                  <MDBIcon icon="fas fa-times"/>
+                  </MDBBtn>
+                </td>
+              </tr>)}
             </MDBTableBody>
           </MDBTable>
         </MDBCardBody>

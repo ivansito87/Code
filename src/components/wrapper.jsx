@@ -3,6 +3,7 @@ import Counter from "./counterComponent";
 import {MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardGroup, MDBContainer, MDBJumbotron} from "mdbreact";
 import JumbotronPage from "./jumbotron";
 import TablePage from "./table";
+import FooterPage from "./footer";
 
 class PanelPage extends Component {
 
@@ -26,7 +27,7 @@ class PanelPage extends Component {
         <Counter countState={this.state.count}/>
         <JumbotronPage handleCount={this.handleCount}/>
         <TablePage />
-        <MDBCardGroup column>
+        {/*<MDBCardGroup column>
           <MDBCard>
             <MDBCardBody>
               <MDBCardTitle tag="h5">
@@ -122,7 +123,8 @@ class PanelPage extends Component {
               </MDBCardText>
             </MDBCardBody>
           </MDBCard>
-        </MDBCardGroup>
+        </MDBCardGroup>*/}
+        <FooterPage />
       </MDBContainer>
     );
   }
