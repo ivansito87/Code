@@ -1,12 +1,27 @@
 import React, { Component } from "react";
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon } from "mdbreact";
+import {
+  MDBNavbar,
+  MDBNavbarBrand,
+  MDBBadge,
+  MDBNavbarNav,
+  MDBNavItem,
+  MDBNavLink,
+  MDBNavbarToggler,
+  MDBCollapse,
+  MDBDropdown,
+  MDBDropdownToggle,
+  MDBDropdownMenu,
+  MDBDropdownItem,
+  MDBIcon
+} from "mdbreact";
 import { BrowserRouter as Router } from "react-router-dom";
 
 class NavbarPage extends Component {
   state = {
     isOpen: false,
-    count: 8987,
-    imageURL: "https://picsum.photos/200" 
+    count: 1,
+    imageURL: "https://picsum.photos/200",
+    
   };
 
   toggleCollapse = () => {
@@ -18,12 +33,21 @@ class NavbarPage extends Component {
     return count === 0 ? "Zero" : count;
   };
 
+  getBadgeClasses() {
+    const { count } = this.state;
+    const colorBadge = count === 0 ? "warning" : "success";
+    return colorBadge;
+  }
+
   render() {
     return (
       <Router>
-        <MDBNavbar color="default-color" dark expand="md">
+        <MDBNavbar color="indigo" dark expand="md">
           <MDBNavbarBrand>
-            <strong className="white-dark">Shopping Cart: {this.formatCount()}</strong>
+            <strong className="text-white text-bolder">Shopping Cart: </strong>
+            <MDBBadge pill color={this.getBadgeClasses()} className="text-dark">
+              {this.formatCount()}
+            </MDBBadge>
           </MDBNavbarBrand>
           <MDBNavbarToggler onClick={this.toggleCollapse} />
           <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
