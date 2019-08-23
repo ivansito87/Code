@@ -16,7 +16,7 @@ import {
 } from "mdbreact";
 import { BrowserRouter as Router } from "react-router-dom";
 
-class NavbarPage extends Component {
+class Counter extends Component {
   state = {
     isOpen: false,
     count: 1,
@@ -107,4 +107,4 @@ class NavbarPage extends Component {
   }
 }
 
-export default NavbarPage;
+export default Counter;
