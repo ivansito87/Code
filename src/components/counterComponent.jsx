@@ -19,10 +19,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 class Counter extends Component {
   state = {
     isOpen: false,
-    count: 1,
-    imageURL: "https://picsum.photos/200",
-    
+     count: 0
+
   };
+
 
   toggleCollapse = () => {
     this.setState({ isOpen: !this.state.isOpen });
@@ -34,15 +34,21 @@ class Counter extends Component {
   };
 
   getBadgeClasses() {
-    const { count } = this.state;
-    const colorBadge = count === 0 ? "warning" : "success";
-    return colorBadge;
+    let { count } = this.state;
+    return count === 0 ? "warning" : "success";
+    // return colorBadge;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.countState !== prevProps.countState) {
+      this.setState({count: this.props.countState });
+    }
   }
 
   render() {
     return (
       <Router>
-        <MDBNavbar color="indigo" dark expand="md">
+        <MDBNavbar color="black" dark expand="md">
           <MDBNavbarBrand>
             <strong className="text-white text-bolder">Shopping Cart: </strong>
             <MDBBadge pill color={this.getBadgeClasses()} className="text-dark">
