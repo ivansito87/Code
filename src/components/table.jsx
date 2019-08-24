@@ -1,25 +1,37 @@
 import React, {Component} from 'react';
 import {MDBCard, MDBCardBody, MDBCardHeader, MDBBtn, MDBIcon, MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
 import movies from "./fakeMovieService.js";
+import ModalPage from "./modal";
 
 class TablePage extends Component {
 
   state = {
-    movies: movies
+    movies: movies,
+    modal14: false,
+    movie_count: movies.length
   };
 
-  componentDidMount() {
-    console.log("movies", this.state.movies);
+    componentDidMount() {
+    // console.log("movies", this.state.movies);
   }
 
   handleMovieRemove = (event, movie_id) => {
     event.preventDefault();
     const movies = this.state.movies.filter(movie => movie._id !== movie_id);
-    this.setState({ movies })
+    this.setState({ movies, movie_count: movies.length },() => {
+      if (this.state.movies.length === 0) this.setState({modal14: true})
+    })
+  };
+
+  toggleModal = () => {
+    this.setState({
+      modal14: !this.state.modal14
+    });
   };
 
 
   render() {
+
     return (
       <MDBCard narrow>
         <MDBCardHeader
@@ -32,7 +44,7 @@ class TablePage extends Component {
               <i className="fa fa-columns mt-0">{" "}</i>
             </MDBBtn>
           </div>
-          <a href="#" className="white-text mx-3">Table name</a>
+          <a href={" "} className="white-text mx-3">There are { this.state.movie_count } movies in the database</a>
           <div>
             <MDBBtn outline rounded size="sm" color="white" className="px-2">
               <i className="fas fa-pencil-alt mt-0">{" "}</i>
@@ -46,6 +58,7 @@ class TablePage extends Component {
           </div>
         </MDBCardHeader>
         <MDBCardBody className="elevation-demo-surface">
+          {this.state.modal14 && <ModalPage modal14={this.state.modal14} toggleModal={this.toggleModal}/>}
           <MDBTable hover>
             <MDBTableHead>
               <tr>
@@ -64,7 +77,7 @@ class TablePage extends Component {
                 <td>{_movie.genre.name}</td>
                 <td>{_movie.numberInStock}</td>
                 <td>
-                  <MDBBtn tag="a" floating gradient="peach" href={" "} onClick={(event) => this.handleMovieRemove(event, _movie._id)}>
+                  <MDBBtn tag="a" floating gradient="peach" onClick={(event) => this.handleMovieRemove(event, _movie._id)}>
                   <MDBIcon icon="fas fa-times"/>
                   </MDBBtn>
                 </td>

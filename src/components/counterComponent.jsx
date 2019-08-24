@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -14,34 +14,33 @@ import {
   MDBDropdownItem,
   MDBIcon
 } from "mdbreact";
-import { BrowserRouter as Router } from "react-router-dom";
+import {BrowserRouter as Router} from "react-router-dom";
 
 class Counter extends Component {
   state = {
     isOpen: false,
-     count: 0
+    count: 0
 
   };
 
-
   toggleCollapse = () => {
-    this.setState({ isOpen: !this.state.isOpen });
+    this.setState({isOpen: !this.state.isOpen});
   };
 
   formatCount = () => {
-    let { count } = this.state;
+    let {count} = this.state;
     return count === 0 ? "Zero" : count;
   };
 
   getBadgeClasses() {
-    let { count } = this.state;
+    let {count} = this.state;
     return count === 0 ? "warning" : "success";
     // return colorBadge;
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.countState !== prevProps.countState) {
-      this.setState({count: this.props.countState });
+      this.setState({count: this.props.countState});
     }
   }
 
@@ -55,7 +54,7 @@ class Counter extends Component {
               {this.formatCount()}
             </MDBBadge>
           </MDBNavbarBrand>
-          <MDBNavbarToggler onClick={this.toggleCollapse} />
+          <MDBNavbarToggler onClick={this.toggleCollapse}/>
           <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
             <MDBNavbarNav left>
               <MDBNavItem active>
@@ -84,18 +83,18 @@ class Counter extends Component {
             <MDBNavbarNav right>
               <MDBNavItem>
                 <MDBNavLink className="waves-effect waves-light" to="#!">
-                  <MDBIcon fab icon="twitter" />
+                  <MDBIcon fab icon="twitter"/>
                 </MDBNavLink>
               </MDBNavItem>
               <MDBNavItem>
                 <MDBNavLink className="waves-effect waves-light" to="#!">
-                  <MDBIcon fab icon="google-plus-g" />
+                  <MDBIcon fab icon="google-plus-g"/>
                 </MDBNavLink>
               </MDBNavItem>
               <MDBNavItem>
                 <MDBDropdown>
                   <MDBDropdownToggle nav caret>
-                    <MDBIcon icon="user" />
+                    <MDBIcon icon="user"/>
                   </MDBDropdownToggle>
                   <MDBDropdownMenu className="dropdown-default">
                     <MDBDropdownItem href="#!">Action</MDBDropdownItem>
