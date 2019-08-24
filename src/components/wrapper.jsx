@@ -5,7 +5,6 @@ import JumbotronPage from "./jumbotron";
 import TablePage from "./table";
 import FooterPage from "./footer";
 import Counters from "./counters";
-
 class PanelPage extends Component {
 
   state = {
