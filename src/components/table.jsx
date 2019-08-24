@@ -1,15 +1,27 @@
 import React, {Component} from 'react';
-import {MDBCard, MDBCardBody, MDBCardHeader, MDBBtn, MDBIcon, MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBCardHeader,
+  MDBBtn,
+  MDBIcon,
+  MDBTable,
+  MDBTableBody,
+  MDBTableHead,
+  MDBCol
+} from 'mdbreact';
 import movies from "./fakeMovieService.js";
 import ModalPage from "./modal";
 import Like from "./buttons";
+import PaginationPage from "./paginationPage";
 
 class TablePage extends Component {
 
   state = {
     movies: movies,
     modal14: false,
-    movie_count: movies.length
+    movie_count: movies.length,
+    pageSize: 4
   };
 
   componentDidMount() {
@@ -45,6 +57,10 @@ class TablePage extends Component {
 
   };
 
+  handlePageChange = page => {
+    console.log(page);
+  };
+
   render() {
 
     return (
@@ -52,20 +68,12 @@ class TablePage extends Component {
         <MDBCardHeader
           className="view view-cascade gradient-card-header purple-gradient d-flex justify-content-between align-items-center py-2 mx-4 mb-3 clearfix">
           <div>
-            <MDBBtn size="md" color="info" className="px-2 float-left">
-              <i className="fa fa-th-large mt-0">Drama</i>
-            </MDBBtn>
-            <MDBBtn outline rounded size="md" color="black" className="px-2 float-left">
-              <i className="fa fa-columns mt-0">{" "}</i>
-            </MDBBtn>
-            <MDBBtn outline rounded size="md" color="black" className="px-2 float-left">
-              <i className="fa fa-th-large mt-0">{" "}</i>
-            </MDBBtn>
-            <MDBBtn outline rounded size="md" color="black" className="px-2 float-left">
-              <i className="fa fa-columns mt-0">{" "}</i>
-            </MDBBtn>
+            <MDBBtn className="cloudy-knoxville-gradient" color="warning-color-darker" size="sm">Increment</MDBBtn>
+            <MDBBtn className="deep-blue-gradient" color="success-color-darker" size="sm">Decrement</MDBBtn>
+            <MDBBtn className="dusty-grass-gradient" color="warning-color-darker" size="sm">Increment</MDBBtn>
+            <MDBBtn className="tempting-azure-gradient" color="success-color-darker" size="sm">Decrement</MDBBtn>
           </div>
-          <a href={" "} className="white-text mx-3">There are {this.state.movie_count} movies in the database</a>
+          <a href={" "} className="h5 font-weight-bold black-text my-4">There are {this.state.movie_count} movies in the database</a>
         </MDBCardHeader>
         <MDBCardBody className="elevation-demo-surface">
           {this.state.modal14 && <ModalPage modal14={this.state.modal14} toggleModal={this.toggleModal}/>}
@@ -97,6 +105,7 @@ class TablePage extends Component {
             </MDBTableBody>
           </MDBTable>
         </MDBCardBody>
+        <PaginationPage itemsCount={this.state.movies.length} pageSize={this.state.pageSize} onPageChange={this.handlePageChange}/>
       </MDBCard>
     );
   }

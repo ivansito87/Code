@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "font-awesome": "^4.7.0",
+    "lodash": "^4.17.15",
     "mdbreact": "^4.19.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

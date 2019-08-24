@@ -37,7 +37,8 @@ const TeamPage = () => {
             <h4 className="font-weight-bold dark-grey-text my-4">
               Sarah Melyah
             </h4>
-            <h6 className="text-uppercase grey-text mb-3">Web Developer</h6>
+            <h6 className="text-uppercase
+             mb-3">Web Developer</h6>
             <MDBBtn className="sunny-morning-gradient" color="warning-color-darker" size="sm">Increment</MDBBtn>
             <MDBBtn className="amy-crisp-gradient" color="success-color-darker" size="sm">Decrement</MDBBtn>
           </MDBCol>
