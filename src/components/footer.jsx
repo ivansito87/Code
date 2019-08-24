@@ -39,6 +39,6 @@ const FooterPage = () => {
       </div>
     </MDBFooter>
   );
-}
+};
 
 export default FooterPage;

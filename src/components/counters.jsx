@@ -45,6 +45,6 @@ const TeamPage = () => {
       </MDBCardBody>
     </MDBCard>
   );
-}
+};
 
 export default TeamPage;
