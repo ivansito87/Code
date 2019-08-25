@@ -53,7 +53,7 @@ class TablePage extends Component {
     //
     movies[index] = {...movies[index]};
     movies[index].liked = !movies[index].liked;
-    this.setState({ movies });
+    this.setState({movies});
 
   };
 
@@ -73,7 +73,8 @@ class TablePage extends Component {
             <MDBBtn className="dusty-grass-gradient" color="warning-color-darker" size="sm">Increment</MDBBtn>
             <MDBBtn className="tempting-azure-gradient" color="success-color-darker" size="sm">Decrement</MDBBtn>
           </div>
-          <a href={" "} className="h5 font-weight-bold black-text my-4">There are {this.state.movie_count} movies in the database</a>
+          <a href={" "} className="h5 font-weight-bold black-text my-4">There are {this.state.movie_count} movies in the
+            database</a>
         </MDBCardHeader>
         <MDBCardBody className="elevation-demo-surface">
           {this.state.modal14 && <ModalPage modal14={this.state.modal14} toggleModal={this.toggleModal}/>}
@@ -105,7 +106,8 @@ class TablePage extends Component {
             </MDBTableBody>
           </MDBTable>
         </MDBCardBody>
-        <PaginationPage itemsCount={this.state.movies.length} pageSize={this.state.pageSize} onPageChange={this.handlePageChange}/>
+        <PaginationPage itemsCount={this.state.movies.length} pageSize={this.state.pageSize}
+                        onPageChange={this.handlePageChange}/>
       </MDBCard>
     );
   }
