@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -14,7 +14,7 @@ import {
   MDBDropdownItem,
   MDBIcon
 } from "mdbreact";
-import {BrowserRouter as Router} from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 class Counter extends Component {
   state = {
@@ -24,30 +24,31 @@ class Counter extends Component {
   };
 
   toggleCollapse = () => {
-    this.setState({isOpen: !this.state.isOpen});
+    this.setState({ isOpen: !this.state.isOpen });
   };
 
   formatCount = () => {
-    let {count} = this.state;
+    let { count } = this.state;
     return count === 0 ? "Zero" : count;
   };
 
   getBadgeClasses() {
-    let {count} = this.state;
+    let { count } = this.state;
     return count === 0 ? "warning" : "success";
     // return colorBadge;
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.countState !== prevProps.countState) {
-      this.setState({count: this.props.countState});
+      this.setState({ count: this.props.countState });
     }
   }
 
   render() {
     return (
       <Router>
-        <MDBNavbar color="aqua-gradient" light expand="md" className="text-black text-bolder" style={{height: 80, fontSize: 20}}>
+        <MDBNavbar color="aqua-gradient" light expand="md" className="text-black text-bolder"
+                   style={{ height: 80, fontSize: 20 }}>
           <MDBNavbarBrand>
             <strong className="text-black text-bolder h2">Shopping Cart: </strong>
             <MDBBadge pill color={this.getBadgeClasses()} className="text-dark h2">

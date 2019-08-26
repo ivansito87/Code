@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { MDBBtn, MDBIcon, MDBTable, MDBTableBody } from "mdbreact";
+import { MDBBtn, MDBIcon, MDBTable } from "mdbreact";
 import Like from "./buttons";
 import TableHeader from "./tableHeader";
+import TableBody from "./tableBody";
 
 class AbstractedTable extends Component {
 
@@ -10,17 +11,29 @@ class AbstractedTable extends Component {
     { path: "genre.name", label: "Genre" },
     { path: "numberInStock", label: "Stock" },
     { path: "dailyRentalRate", label: "Rate" },
-    { key: "like" },
-    { key: "delete" }
+    {
+      key: "like",
+      label: "Like",
+      content: _movie => <Like handleLike={(e) => this.props.onLike(e, _movie)} liked={_movie.liked}/>
+    },
+    {
+      key: "delete",
+      label: "Delete",
+      content:_movie => <MDBBtn tag="a" floating gradient="peach"
+                       onClick={(event) => this.props.onDelete(event, _movie._id)}>
+        <MDBIcon icon="fas fa-times"/>
+      </MDBBtn>
+    }
   ];
 
   render() {
-    const { movies, onDelete, onLike, onSort, sortColumn } = this.props;
+    const { movies, onSort, sortColumn } = this.props;
 
     return (
       <MDBTable hover>
         <TableHeader columns={this.columns} sortColumn={sortColumn} onSort={onSort}/>
-        <MDBTableBody>
+        <TableBody columns={this.columns} data={movies}/>
+        {/*<MDBTableBody>
           {movies.map((_movie) => <tr key={_movie._id}>
             <td>{_movie.title}</td>
             <td>{_movie.genre.name}</td>
@@ -34,7 +47,7 @@ class AbstractedTable extends Component {
               </MDBBtn>
             </td>
           </tr>)}
-        </MDBTableBody>
+        </MDBTableBody>*/}
       </MDBTable>
     );
   }
