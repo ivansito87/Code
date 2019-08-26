@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Counter from "./counterComponent";
 import {MDBContainer} from "mdbreact";
 import JumbotronPage from "./jumbotron";
-import TablePage from "./table";
+import TablePage from "./tableContainer";
 import FooterPage from "./footer";
 import Counters from "./counters";
 class PanelPage extends Component {

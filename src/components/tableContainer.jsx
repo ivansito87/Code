@@ -99,8 +99,8 @@ class TablePage extends Component {
 
     */
 
-    this.setState({ sortColumn }, () => {
-        console.log("State Updated");
+    this.setState({sortColumn}, () => {
+      console.log("State Updated");
     });
 
   };
@@ -116,14 +116,14 @@ class TablePage extends Component {
 
     //=========== Then order =================================================
     // Used to sort or order the movies based on either asc or desc order
-    const sorted =_.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
 
     //=========== Handle paginaton =================================================
 
     const movies = paginate(sorted, currentPage, pageSize);
 
     return (
-      <MDBRow>
+      <MDBRow expand="md">
         <MDBCol md="3">
           <MyListGroup
             items={this.state.genres}

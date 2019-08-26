@@ -1,42 +1,27 @@
 import React, { Component } from 'react';
-import { MDBBtn, MDBIcon, MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
+import { MDBBtn, MDBIcon, MDBTable, MDBTableBody } from "mdbreact";
 import Like from "./buttons";
+import TableHeader from "./tableHeader";
 
 class AbstractedTable extends Component {
 
-  raiseSort = path => {
-    //=========== This is one way of doing it =================================================
-    // although this works well is not the best way of doing it
-
-    const sortColumn = {...this.props.sortColumn};
-    if (sortColumn.path !== path) {
-      sortColumn.path = path;
-      sortColumn.order = "asc";
-    } else {
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    }
-
-    this.props.onSort(sortColumn);
-
-  };
+  columns = [
+    { path: "title", label: "Title" },
+    { path: "genre.name", label: "Genre" },
+    { path: "numberInStock", label: "Stock" },
+    { path: "dailyRentalRate", label: "Rate" },
+    { key: "like" },
+    { key: "delete" }
+  ];
 
   render() {
-    const {movies, onDelete, onLike} = this.props;
+    const { movies, onDelete, onLike, onSort, sortColumn } = this.props;
 
     return (
       <MDBTable hover>
-        <MDBTableHead>
-          <tr>
-            <th onClick={() => this.raiseSort("title")}>Title</th>
-            <th onClick={() => this.raiseSort("genre.name")}>Genre</th>
-            <th onClick={() => this.raiseSort("numberInStock")}>Stock</th>
-            <th onClick={() => this.raiseSort("dailyRentalRate")}>Rate</th>
-            <th>Liked</th>
-            <th>Delete</th>
-          </tr>
-        </MDBTableHead>
+        <TableHeader columns={this.columns} sortColumn={sortColumn} onSort={onSort}/>
         <MDBTableBody>
-          {movies.map((_movie, index) => <tr key={_movie._id}>
+          {movies.map((_movie) => <tr key={_movie._id}>
             <td>{_movie.title}</td>
             <td>{_movie.genre.name}</td>
             <td>{_movie.numberInStock}</td>
@@ -54,7 +39,6 @@ class AbstractedTable extends Component {
     );
   }
 }
-
 
 
 export default AbstractedTable;

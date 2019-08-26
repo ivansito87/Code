@@ -6,7 +6,7 @@ const JumbotronPage = (props) => {
     <MDBContainer className="mt-5 text-center">
       <MDBRow>
         <MDBCol>
-          <MDBJumbotron className="bg-light text-dark black" >
+          <MDBJumbotron className="deep-blue-gradient text-dark dark" >
             <h2 className="display-1 font-weight-bold my-5">Hello, Ivan!</h2>
             <p className="lead">
               This is a simple hero unit, a simple Jumbotron-style component for

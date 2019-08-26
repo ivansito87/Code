@@ -47,10 +47,10 @@ class Counter extends Component {
   render() {
     return (
       <Router>
-        <MDBNavbar color="black" dark expand="md">
+        <MDBNavbar color="aqua-gradient" light expand="md" className="text-black text-bolder" style={{height: 80, fontSize: 20}}>
           <MDBNavbarBrand>
-            <strong className="text-white text-bolder">Shopping Cart: </strong>
-            <MDBBadge pill color={this.getBadgeClasses()} className="text-dark">
+            <strong className="text-black text-bolder h2">Shopping Cart: </strong>
+            <MDBBadge pill color={this.getBadgeClasses()} className="text-dark h2">
               {this.formatCount()}
             </MDBBadge>
           </MDBNavbarBrand>
