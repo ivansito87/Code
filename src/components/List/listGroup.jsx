@@ -9,19 +9,16 @@ const MyListGroup = props => {
   return (
     <MDBContainer>
       <MDBListGroup className="mx-auto z-depth-1-half active">
-        {items.map(item => <MDBListGroupItem {...selectedItem === item && {active: true}}
-          key={item[valueProperty]}
-          color="info"
-          onClick={() => onItemSelect(item)}
-          className=""
-          hover
-        >
-          {item[textProperty]}
-        </MDBListGroupItem>)}
-        {/*<MDBListGroupItem color="warning" href="" className="cloudy-knoxville-gradient text-secondary" hover>All Genres</MDBListGroupItem>
-        <MDBListGroupItem color="light" href="" className="" hover>Action</MDBListGroupItem>
-        <MDBListGroupItem color="light" href="" hover>Comedy</MDBListGroupItem>
-        <MDBListGroupItem color="light" href="" hover>Thriller</MDBListGroupItem>*/}
+        {items.map(item =>
+          <MDBListGroupItem {...selectedItem === item && {active: true}}
+                            key={item[valueProperty]}
+                            color="primary"
+                            onClick={() => onItemSelect(item)}
+                            className=""
+                            hover
+          >
+            {item[textProperty]}
+          </MDBListGroupItem>)}
       </MDBListGroup>
     </MDBContainer>
 

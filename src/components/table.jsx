@@ -1,23 +1,19 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   MDBCard,
   MDBCardBody,
   MDBCardHeader,
-  MDBBtn,
   MDBCol,
-  MDBRow,
-  MDBIcon,
-  MDBTable,
-  MDBTableBody,
-  MDBTableHead,
+  MDBRow
 } from 'mdbreact';
 import movies from "../services/fakeMovieService.js";
 import ModalPage from "./modal";
-import Like from "./buttons";
 import PaginationPage from "./paginationPage";
 import { paginate } from "../utils/pajinate";
 import MyListGroup from "../components/List/listGroup";
 import { getGenres } from "../services/fakeGenreService";
+import AbstractedTable from "./abstractedTable";
+import _ from "lodash";
 
 class TablePage extends Component {
 
@@ -27,16 +23,20 @@ class TablePage extends Component {
     movie_count: movies.length,
     pageSize: 4,
     currentPage: 1,
-    genres: getGenres()
+    genres: getGenres(),
+    sortColumn: {
+      path: "title",
+      order: "asc"
+    }
   };
 
   // we will initialize the genres array from when the component mounts
   // for a full stack app this could be getting a response from the DB
   componentDidMount() {
 
-    const genres = [{name: "All Genres"}, ...getGenres() ];
+    const genres = [{_id: "", name: "All Genres"}, ...getGenres()];
 
-    this.setState( { movies , genres });
+    this.setState({movies, genres});
 
     // console.log("movies", this.state.movies);
   }
@@ -78,20 +78,49 @@ class TablePage extends Component {
 
   handleGenreSelect = (item) => {
 
-    this.setState({selectedGenre: item, currentPage:1});
+    this.setState({selectedGenre: item, currentPage: 1});
     console.log("Selecting Genre", item);
 
   };
 
+  handleSort = sortColumn => {
+
+    //=========== This is one way of doing it =================================================
+    // although this works well is not the best way of doing it
+    /*
+
+    const sortColumn = {...this.state.sortColumn};
+    if (sortColumn.path !== path) {
+      sortColumn.path = path;
+      sortColumn.order = "asc";
+    } else {
+      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
+    }
+
+    */
+
+    this.setState({ sortColumn }, () => {
+        console.log("State Updated");
+    });
+
+  };
 
   render() {
-    const { pageSize, currentPage, movie_count, selectedGenre, movies: allMovies } = this.state;
+    const {pageSize, currentPage, selectedGenre, movies: allMovies, sortColumn} = this.state;
 
+    //=========== First we filter =================================================
+    // Used to filter all the movies on a give genre
     const filtered = selectedGenre && selectedGenre._id
       ? allMovies.filter(m => m.genre._id === selectedGenre._id)
       : allMovies;
 
-    const movies = paginate(filtered, currentPage, pageSize);
+    //=========== Then order =================================================
+    // Used to sort or order the movies based on either asc or desc order
+    const sorted =_.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+
+    //=========== Handle paginaton =================================================
+
+    const movies = paginate(sorted, currentPage, pageSize);
 
     return (
       <MDBRow>
@@ -102,57 +131,33 @@ class TablePage extends Component {
             onItemSelect={this.handleGenreSelect}/>
         </MDBCol>
         <MDBCol md="9">
-      <MDBCard narrow className="z-depth-1-half">
-        <MDBCardHeader
-          className="view view-cascade gradient-card-header aqua-gradient d-flex justify-content-between align-items-center py-2 mx-4 mb-3 clearfix">
-          <div>
-            <PaginationPage
-              itemsCount={filtered.length}
-              pageSize={pageSize}
-              onPageChange={this.handlePageChange}
-              currentPage={currentPage}
-              textProperty="name"
-              valueProperty="_id"
-            />
-            {/*<MDBBtn className="cloudy-knoxville-gradient" color="warning-color-darker" size="sm">All Genres</MDBBtn>
-            <MDBBtn className="deep-blue-gradient" color="success-color-darker" size="sm">Action</MDBBtn>
-            <MDBBtn className="dusty-grass-gradient" color="warning-color-darker" size="sm">Comedy</MDBBtn>
-            <MDBBtn className="tempting-azure-gradient" color="success-color-darker" size="sm">Thriller</MDBBtn>*/}
-          </div>
-          <a href={" "} className="h5 font-weight-bold black-text my-4">There are {filtered.length} movies in the
-            database</a>
-        </MDBCardHeader>
-        <MDBCardBody className="elevation-demo-surface">
-          {this.state.modal14 && <ModalPage modal14={this.state.modal14} toggleModal={this.toggleModal}/>}
-          <MDBTable hover>
-            <MDBTableHead>
-              <tr>
-                <th>Number</th>
-                <th>Title</th>
-                <th>Genre</th>
-                <th>Stock</th>
-                <th>Liked</th>
-                <th>Delete</th>
-              </tr>
-            </MDBTableHead>
-            <MDBTableBody>
-              {movies.map((_movie, index) => <tr key={_movie._id}>
-                <td>{index + 1}</td>
-                <td>{_movie.title}</td>
-                <td>{_movie.genre.name}</td>
-                <td>{_movie.numberInStock}</td>
-                <td><Like handleLike={(e) => this.handleLike(e, _movie)} liked={_movie.liked}/></td>
-                <td>
-                  <MDBBtn tag="a" floating gradient="peach"
-                          onClick={(event) => this.handleMovieRemove(event, _movie._id)}>
-                    <MDBIcon icon="fas fa-times"/>
-                  </MDBBtn>
-                </td>
-              </tr>)}
-            </MDBTableBody>
-          </MDBTable>
-        </MDBCardBody>
-      </MDBCard>
+          <MDBCard narrow className="z-depth-1-half">
+            <MDBCardHeader
+              className="view view-cascade gradient-card-header aqua-gradient d-flex justify-content-between align-items-center py-2 mx-4 mb-3 clearfix">
+              <div>
+                <PaginationPage
+                  itemsCount={filtered.length}
+                  pageSize={pageSize}
+                  onPageChange={this.handlePageChange}
+                  currentPage={currentPage}
+                  textProperty="name"
+                  valueProperty="_id"
+                />
+              </div>
+              <a href={" "} className="h5 font-weight-bold black-text my-4">There are {filtered.length} movies in the
+                database</a>
+            </MDBCardHeader>
+            <MDBCardBody className="elevation-demo-surface">
+              {this.state.modal14 && <ModalPage modal14={this.state.modal14} toggleModal={this.toggleModal}/>}
+              <AbstractedTable
+                movies={movies}
+                sortColumn={sortColumn}
+                onLike={this.handleLike}
+                onDelete={this.handleMovieRemove}
+                onSort={this.handleSort}
+              />
+            </MDBCardBody>
+          </MDBCard>
         </MDBCol>
       </MDBRow>
     );
