@@ -5,6 +5,9 @@ import JumbotronPage from "./jumbotron";
 import TablePage from "./tableContainer";
 import FooterPage from "./footer";
 import Counters from "./counters";
+import SmallNavbar from "./smallNavbar/smallNavbar";
+import "../../src/index.css";
+
 class PanelPage extends Component {
 
   state = {
@@ -27,9 +30,10 @@ class PanelPage extends Component {
         <MDBContainer>
           <JumbotronPage handleCount={this.handleCount}/>
           <Counters />
-          <TablePage/>
+          <SmallNavbar />
+          <TablePage />
         </MDBContainer>
-        <FooterPage/>
+        <FooterPage />
       </React.Fragment>
     );
   }

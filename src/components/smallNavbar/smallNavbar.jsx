@@ -1,24 +1,17 @@
 import React from "react";
-import { BrowserRouter } from 'react-router-dom';
 import { MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
 
-export default () => (
-  <BrowserRouter>
 
-    <MDBNav className="justify-content-center">
-      <MDBNavItem>
-        <MDBNavLink active to="#!">Active</MDBNavLink>
-      </MDBNavItem>
-      <MDBNavItem>
-        <MDBNavLink to="#!">Link</MDBNavLink>
-      </MDBNavItem>
-      <MDBNavItem>
-        <MDBNavLink to="#!">Link</MDBNavLink>
-      </MDBNavItem>
-      <MDBNavItem>
-        <MDBNavLink disabled to="#!">Disabled</MDBNavLink>
-      </MDBNavItem>
-    </MDBNav>
+const SmallNavbar = () => (
 
-  </BrowserRouter>
+  <MDBNav color="blue-gradient" className="font-weight-bold py-4 px-2 mb-4">
+    <MDBNavLink className="white-text" to="/movies">Movies</MDBNavLink>
+    <MDBNavLink className="white-text" to="/customers">Customers</MDBNavLink>
+    <MDBNavLink className="white-text" to="/rentals">Rentals</MDBNavLink>
+    <MDBNavLink className="white-text" to="/login">Login</MDBNavLink>
+  </MDBNav>
+
 );
+
+export default SmallNavbar;
+

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBBtn, MDBIcon, MDBTable } from "mdbreact";
+import { MDBBtn, MDBIcon, MDBTable, MDBNavLink } from "mdbreact";
 import Like from "./buttons";
 import TableHeader from "./tableHeader";
 import TableBody from "./tableBody";
@@ -7,7 +7,7 @@ import TableBody from "./tableBody";
 class AbstractedTable extends Component {
 
   columns = [
-    { path: "title", label: "Title" },
+    { path: "title", label: "Title", content: movie => <MDBNavLink color="unique" className="deep-purple-text" to={`/movies/${movie._id}`}>{movie.title}</MDBNavLink>},
     { path: "genre.name", label: "Genre" },
     { path: "numberInStock", label: "Stock" },
     { path: "dailyRentalRate", label: "Rate" },

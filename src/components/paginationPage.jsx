@@ -17,9 +17,13 @@ const PaginationPage = props => {
 
   return (
     <MDBPagination color="dark-grey" className="text-center mr-5">
-      {pages.map(page => <MDBPageItem key={page} className={page === currentPage ? "active" : ""}>
-        <MDBPageNav className="float-left m-3"
-                    onClick={() => onPageChange(page)}
+      {pages.map(page => <MDBPageItem
+        key={page}
+        className={page === currentPage ? "active" : ""}
+      >
+        <MDBPageNav
+          className="float-left m-3"
+          onClick={() => onPageChange(page)}
         > {page}
           <span className="sr-only">( current )</span>
         </MDBPageNav>
