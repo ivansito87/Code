@@ -10,7 +10,7 @@ const Input = ({ handleChange, name, label, icon, type, autofocus }) => (
       group
       type={type}
       validate
-      error="wrong"
+      error="true"
       success="right"
       onChange={handleChange}
       name={name}

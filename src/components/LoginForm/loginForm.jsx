@@ -23,10 +23,21 @@ class LoginForm extends Component {
 
   };
 
+  validate = () => {
+    const errors = {};
+    const { username, password } = this.state;
+    if (username.trim() === "")
+      errors.username = "Username is required";
+    if (password.trim() === "")
+      errors.password = "Password is required";
+    this.setState({ errors });
+    return Object.keys(errors).length === 0 ? null : errors;
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
     const errors = this.validate();
+    console.log(errors);
     this.setState({ errors });
     if (errors) return;
   };
@@ -34,7 +45,7 @@ class LoginForm extends Component {
   handleChange = (e) => {
     const username = e.target.value;
     const password = e.target.value;
-    this.setState({username, password}, () => {
+    this.setState({ username, password }, () => {
       console.log(this.state.username);
       console.log(this.state.password);
     });
@@ -52,7 +63,7 @@ class LoginForm extends Component {
                     <MDBIcon icon="lock"/> Login: {this.state.username}
                   </h3>
                 </MDBCardHeader>
-                <form onSubmit={(e) => this.handleSubmit(e)} >
+                <form onSubmit={(e) => this.handleSubmit(e)}>
                   <Input
                     label={"Type your username"}
                     icon={"user"}
