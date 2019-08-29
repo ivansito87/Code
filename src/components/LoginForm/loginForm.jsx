@@ -11,22 +11,33 @@ import {
   MDBBtn,
   MDBInput
 } from "mdbreact";
+import Input from "../common/input";
 
 class LoginForm extends Component {
 
   state = {
     name: "Ivan",
-    username: "" // comes from the form input
+    username: "", // comes from the form input
+    password: "",
+    errors: {}
+
   };
+
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.name);
+    const errors = this.validate();
+    this.setState({ errors });
+    if (errors) return;
   };
 
   handleChange = (e) => {
-    this.setState({username: e.target.value}, () => {
-      console.log(this.state.username);})
+    const username = e.target.value;
+    const password = e.target.value;
+    this.setState({username, password}, () => {
+      console.log(this.state.username);
+      console.log(this.state.password);
+    });
   };
 
   render() {
@@ -42,27 +53,21 @@ class LoginForm extends Component {
                   </h3>
                 </MDBCardHeader>
                 <form onSubmit={(e) => this.handleSubmit(e)} >
-                  <div className="grey-text">
-                    <MDBInput
-                      autoFocus // this is used to auto focus the cursor when the component is render
-                      label="Type your username"
-                      icon="user"
-                      group
-                      type="text"
-                      validate
-                      error="wrong"
-                      success="right"
-                      onChange={this.handleChange}
-                    />
-                    <MDBInput
-                      label="Type your password"
-                      icon="lock"
-                      group
-                      type="password"
-                      validate
-                    />
-                  </div>
-
+                  <Input
+                    label={"Type your username"}
+                    icon={"user"}
+                    type={"text"}
+                    name={"username"}
+                    autofocus={true}
+                    handleChange={this.handleChange}
+                  />
+                  <Input
+                    label={"Type your password"}
+                    icon={"lock"}
+                    type={"password"}
+                    name={"password"}
+                    handleChange={this.handleChange}
+                  />
                   <div className="text-center mt-4">
                     <MDBBtn
                       color="light-blue"
