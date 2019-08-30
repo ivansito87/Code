@@ -9,7 +9,6 @@ import {
   MDBIcon,
   MDBCardHeader,
   MDBBtn,
-  MDBInput
 } from "mdbreact";
 import Input from "../common/input";
 
