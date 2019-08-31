@@ -15,7 +15,6 @@ import Input from "../common/input";
 class LoginForm extends Component {
 
   state = {
-    name: "Ivan",
     username: "", // comes from the form input
     password: "",
     errors: {}
