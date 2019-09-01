@@ -8,9 +8,7 @@ import {
   MDBCardBody,
   MDBIcon,
   MDBCardHeader,
-  MDBBtn,
 } from "mdbreact";
-import Input from "../common/input";
 import Form from "../common/form";
 
 class LoginForm extends Form {
@@ -38,7 +36,6 @@ class LoginForm extends Form {
   };
 
   render() {
-    const { errors } = this.state;
 
     return (
       <MDBContainer>
@@ -52,36 +49,9 @@ class LoginForm extends Form {
                   </h3>
                 </MDBCardHeader>
                 <form onSubmit={(e) => this.handleSubmit(e)}>
-                  <Input
-                    label={"Type your username"}
-                    icon={"user"}
-                    type={"text"}
-                    name={"username"}
-                    autofocus={true}
-                    handleChange={this.handleChange}
-                    error={errors.username}
-                  />
-                  <Input
-                    label={"Type your password"}
-                    icon={"lock"}
-                    type={"password"}
-                    name={"password"}
-                    handleChange={this.handleChange}
-                    error={errors.password}
-                  />
-                  <div className="text-center mt-4">
-                    <MDBBtn
-                      /* to get this button disabled we pass the function that we wrote
-                      since the function returns null or {} empty object we can set the button
-                      depending on the return `{} === truthy and null === falsy`  */
-                      disabled={this.validate()}
-                      color="light-blue"
-                      className="mb-3"
-                      type="submit"
-                    >
-                      Login
-                    </MDBBtn>
-                  </div>
+                  {this.renderInput(1,"username", "Type your username", "user","text", true)}
+                  {this.renderInput(2,"password", "Type your password", "lock", "password")}
+                  {this.renderButton("Login")}
                 </form>
               </MDBCardBody>
             </MDBCard>
