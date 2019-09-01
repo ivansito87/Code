@@ -15,7 +15,7 @@ import Input from "../common/input";
 class LoginForm extends Component {
 
   state = {
-    account: { username: "", password: "" },
+    data: { username: "", password: "" },
     /* username: "", // comes from the form input
      password: "",*/
     errors: {}
@@ -34,7 +34,7 @@ class LoginForm extends Component {
   validate = () => {
     const options = { abortEarly: false };
     // using joi to validate the inputs from the user
-    const { error } = Joi.validate(this.state.account, this.schema, options);
+    const { error } = Joi.validate(this.state.data, this.schema, options);
     if (!error) return null;
 
     const errors = {};
@@ -68,9 +68,9 @@ class LoginForm extends Component {
     if (errorMessage) errors[input.name] = errorMessage;
     else delete errors[input.name];
 
-    const account = { ...this.state.account };
-    account[input.name] = input.value;
-    this.setState({ account, errors });
+    const data = { ...this.state.data };
+    data[input.name] = input.value;
+    this.setState({ data, errors });
   };
 
   render() {
@@ -84,7 +84,7 @@ class LoginForm extends Component {
               <MDBCardBody>
                 <MDBCardHeader className="form-header deep-blue-gradient rounded">
                   <h3 className="my-3">
-                    <MDBIcon icon="lock"/> Hello: {this.state.account.username}
+                    <MDBIcon icon="lock"/> Hello: {this.state.data.username}
                   </h3>
                 </MDBCardHeader>
                 <form onSubmit={(e) => this.handleSubmit(e)}>
@@ -107,6 +107,9 @@ class LoginForm extends Component {
                   />
                   <div className="text-center mt-4">
                     <MDBBtn
+                      /* to get this button disabled we pass the function that we wrote
+                      since the function returns null or {} empty object we can set the button
+                      depending on the return `{} === truthy and null === falsy`  */
                       disabled={this.validate()}
                       color="light-blue"
                       className="mb-3"

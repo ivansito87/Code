@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBInput, MDBAlert } from "mdbreact";
+import { MDBInput } from "mdbreact";
 
 const Input = ({ handleChange, name, label, icon, type, autofocus, error }) => (
   <div className="grey-text">
@@ -15,8 +15,8 @@ const Input = ({ handleChange, name, label, icon, type, autofocus, error }) => (
       onChange={handleChange}
       name={name}
     />
-    {error && <p >
-      <p className="text-danger">{ error }</p>
+    {error && <p>
+      <p className="text-danger">{error}</p>
     </p>}
   </div>
 );
