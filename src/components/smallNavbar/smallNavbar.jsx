@@ -9,6 +9,7 @@ const SmallNavbar = () => (
     <MDBNavLink className="white-text" to="/customers">Customers</MDBNavLink>
     <MDBNavLink className="white-text" to="/rentals">Rentals</MDBNavLink>
     <MDBNavLink className="white-text" to="/login">Login</MDBNavLink>
+    <MDBNavLink className="white-text" to="/register">Register</MDBNavLink>
   </MDBNav>
 
 );
