@@ -10,6 +10,7 @@ import Customers from "./components/common/customers";
 import Rentals from "./components/common/rentals";
 import NotFound from "./components/common/notFound";
 import MovieForm from "./components/common/movieForm";
+import MovieAdd from "./components/common/movieAdd";
 import LoginForm from "./components/LoginForm/loginForm";
 import Register from "./components/register/register";
 
@@ -18,8 +19,8 @@ ReactDOM.render(
     <Switch>
     <Route path="/login" component={LoginForm}></Route>
     <Route path="/register" component={Register}></Route>
-    <Route path="/movies/new" component={MovieForm}></Route>
-    {/*<Route path="/movies/:id" component={MovieForm}></Route>*/}
+    <Route path="/movies/new" component={MovieAdd}></Route>
+    <Route path="/movies/:id" component={MovieForm}></Route>
     <Route path="/movies" component={() => <PanelPage />}></Route>
     <Route path="/customers" component={Customers}></Route>
     <Route path="/rentals" component={Rentals}></Route>

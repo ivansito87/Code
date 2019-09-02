@@ -2,7 +2,7 @@ import React from 'react';
 import { MDBInput } from "mdbreact";
 
 const Input = ({ name, label, error, autofocus, handleChange, ...rest }) => (
-  <div className="grey-text">
+  <div className="grey-text dark-ic">
     <MDBInput
       {...rest}
       name={name}
