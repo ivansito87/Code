@@ -1,7 +1,38 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import Form from "../common/form";
+import Joi from "joi-browser";
 
-const Register = () => {
+class Register extends Form {
+
+state = {
+
+  data: {username: "", password: "", name: ""},
+  errors: {}
+
+};
+
+schema = {
+  username: Joi.string()
+    .required()
+    .email()
+    .label("Username"),
+  password: Joi.string()
+    .required()
+    .min(5)
+    .label("Password"),
+  name: Joi.string()
+    .required()
+    .label("Name")
+};
+
+doSubmit = () => {
+
+  // Call the server
+  console.log("subbmited");
+};
+
+render() {
   return (
     <MDBContainer>
       <MDBRow>
@@ -58,6 +89,8 @@ const Register = () => {
       </MDBRow>
     </MDBContainer>
   );
+
 };
+}
 
 export default Register;
