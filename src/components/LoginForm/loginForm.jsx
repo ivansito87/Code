@@ -49,8 +49,8 @@ class LoginForm extends Form {
                   </h3>
                 </MDBCardHeader>
                 <form onSubmit={(e) => this.handleSubmit(e)}>
-                  {this.renderInput(1,"username", "Type your username", "user","text", true)}
-                  {this.renderInput(2,"password", "Type your password", "lock", "password")}
+                  {this.renderInput(1, "username", "Type your username", "user", "text", true)}
+                  {this.renderInput(2, "password", "Type your password", "lock", "password")}
                   {this.renderButton("Login")}
                 </form>
               </MDBCardBody>

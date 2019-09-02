@@ -58,11 +58,12 @@ class Form extends Component {
     return (
       <div className="text-center mt-4">
         <MDBBtn
+          outline={!this.validate()}
           /* to get this button disabled we pass the function that we wrote
           since the function returns null or {} empty object we can set the button
           depending on the return `{} === truthy and null === falsy`  */
           disabled={this.validate()}
-          color="light-blue"
+          color={!this.validate() && "success"}
           className="my-4 mx-auto text-center"
           type="submit"
         >
@@ -72,7 +73,7 @@ class Form extends Component {
     );
   }
 
-  renderInput(id, name, label, icon, type, autofocus = false){
+  renderInput(id, name, label, icon, type, autofocus = false) {
 
     const { errors, data } = this.state;
 
