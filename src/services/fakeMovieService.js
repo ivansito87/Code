@@ -97,6 +97,10 @@ const movies = [
 
 export default movies;
 
+export function getMovie(id) {
+  return movies.find(m => m._id === id)
+}
+
 export function saveMovie(movie) {
 
   let movieInDb = movies.find(m => m._id === movie._id) || {};

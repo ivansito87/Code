@@ -2,6 +2,7 @@ import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import Form from "./form";
 import Joi from "joi-browser";
+import { getMovie, saveMovie } from "../../services/fakeMovieService";
 import { getGenres } from "../../services/fakeGenreService";
 
 class MovieForm extends Form {
@@ -27,7 +28,7 @@ class MovieForm extends Form {
     numberInStock: Joi.number()
       .required()
       .min(0)
-      .max(10)
+      .max(100)
       .label("Daily Rental Rate")
   };
 
@@ -70,12 +71,13 @@ class MovieForm extends Form {
 
   };
 
-  dosubmit = () => {
+  doSubmit = () => {
 
     saveMovie(this.state.data);
     this.props.history.push("/movies");
 
   };
+
 
   render() {
     const { history } = this.props;
@@ -94,7 +96,7 @@ class MovieForm extends Form {
                   className="warm-flame-gradient"
                   onClick={() => history.push("/movies")}
                 >Cancel</MDBBtn>
-                <MDBBtn className="young-passion-gradient">Register</MDBBtn>
+                {this.renderButton("Save")}
               </div>
             </form>
           </MDBCol>
