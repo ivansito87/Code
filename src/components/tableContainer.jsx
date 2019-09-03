@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  MDBBtn,
   MDBCard,
   MDBCardBody,
   MDBCardHeader,
@@ -132,6 +133,9 @@ class TablePage extends Component {
         </MDBCol>
         <MDBCol md="9">
           <MDBCard narrow className="z-depth-1-half">
+            <MDBBtn color="purple" href="/movies/new">
+              Add movie
+            </MDBBtn>
             <MDBCardHeader
               className="view view-cascade gradient-card-header aqua-gradient d-flex justify-content-between align-items-center py-2 mx-4 mb-3 clearfix">
               <div>

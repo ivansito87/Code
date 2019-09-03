@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Joi from "joi-browser";
 import { MDBBtn } from "mdbreact";
 import Input from "./input";
+import Select from "./select";
 
 class Form extends Component {
 
@@ -54,7 +55,7 @@ class Form extends Component {
     this.setState({ data, errors });
   };
 
-  renderButton(label) {
+  renderButton(label, classname, disabled ) {
     return (
       <div className="text-center mt-4">
         <MDBBtn
@@ -62,8 +63,8 @@ class Form extends Component {
           /* to get this button disabled we pass the function that we wrote
           since the function returns null or {} empty object we can set the button
           depending on the return `{} === truthy and null === falsy`  */
-          disabled={this.validate()}
-          color={!this.validate() && "success"}
+          disabled={this.validate() && !disabled}
+          color={(this.validate()) || classname}
           className="my-4 mx-auto text-center"
           type="submit"
         >
@@ -71,6 +72,21 @@ class Form extends Component {
         </MDBBtn>
       </div>
     );
+  }
+
+  renderSelect(name, label, options) {
+    const { data, errors } = this.state;
+    return (
+      <Select
+        name={name}
+        value={data[name]}
+        label={label}
+        options={options}
+        onChange={this.handleChange}
+        error={errors[name]}
+      />
+    );
+
   }
 
   renderInput(id, name, label, icon, type, autofocus = false) {

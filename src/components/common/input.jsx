@@ -14,9 +14,7 @@ const Input = ({ name, label, error, autofocus, handleChange, ...rest }) => (
       error="true"
       success="right"
     />
-    {error && <p>
-      <p className="text-danger">{error}</p>
-    </p>}
+    {error && <p className="text-danger">{error}</p>}
   </div>
 );
 

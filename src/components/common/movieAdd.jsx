@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import Form from "./form";
 import Joi from "joi-browser";
 import { getMovie, saveMovie } from "../../services/fakeMovieService";
@@ -21,7 +21,7 @@ class MovieForm extends Form {
     _id: Joi.string(),
     title: Joi.string()
       .required()
-      .label("title"),
+      .label("Title"),
     genreId: Joi.string()
       .required()
       .label("Genre"),
@@ -29,18 +29,22 @@ class MovieForm extends Form {
       .required()
       .min(0)
       .max(100)
+      .label("Number in Stock"),
+    dailyRentalRate: Joi.number()
+      .required()
+      .min(0)
+      .max(10)
       .label("Daily Rental Rate")
   };
 
 
   componentDidMount() {
 
-    const { history, match } = this.props;
     const genres = getGenres();
 
     this.setState({ genres });
 
-    const movieId = match.params.id;
+    const movieId = this.props.match.params.id;
     if (movieId === "new") return;
 
     const movie = getMovie(movieId);
@@ -49,27 +53,22 @@ class MovieForm extends Form {
     * to hit the back key or be redirected to a page that is empty or has an error
     * if there is no movie we should display the not-found 404
     * */
-    if (!movie) return history.replace("not-found");
+    if (!movie) return this.props.history.replace("/not-found");
 
 
-    this.setState({ data: this.mapToViewModel(movie) });
-
-
+    this.setState({ data: MovieForm.mapToViewModel(movie) });
   }
 
   // if issues change to a regular function
-  mapToViewModel = movie => {
-
-    const {_id, title, genre, numberInStock, dailyRentalRate} = movie;
+  static mapToViewModel(movie) {
     return {
-      _id: _id,
-      title: title,
-      genreId: genre._id,
-      numberInStock: numberInStock,
-      dailyRentalRate: dailyRentalRate
-    }
-
-  };
+      _id: movie._id,
+      title: movie.title,
+      genreId: movie.genre._id,
+      numberInStock: movie.numberInStock,
+      dailyRentalRate: movie.dailyRentalRate
+    };
+  }
 
   doSubmit = () => {
 
@@ -80,22 +79,24 @@ class MovieForm extends Form {
 
 
   render() {
-    const { history } = this.props;
+
     return (
       <MDBContainer>
         <MDBRow>
           <MDBCol md="6" className="m-auto mt-4">
             <p className="h5 text-center mt-5">Add new movie</p>
-            <form className="mt-5">
+            <form className="mt-5" onSubmit={this.handleSubmit}>
               {this.renderInput(1, "title", "Title", "video", "text", true)}
-              {this.renderInput(2, "genre", "Genre", "venus-mars", "text")}
+              {this.renderSelect("genreId", "Genre", this.state.genres)}
+              {/*{this.renderInput(2, "genre", "Genre", "venus-mars", "text")}*/}
               {this.renderInput(3, "numberInStock", "Number in stock", "mouse-pointer", "text")}
-              {this.renderInput(4, "rate", "Rate", "star", "text")}
-              <div className="text-center">
-                <MDBBtn
-                  className="warm-flame-gradient"
-                  onClick={() => history.push("/movies")}
-                >Cancel</MDBBtn>
+              {this.renderInput(4, "dailyRentalRate", "Rate", "star", "text")}
+              <div className="text-center float-left">
+              {/*  <MDBBtn
+                  className="warm-flame-gradient waves-float btn-floating"
+                  onClick={() => this.props.history.push("/movies")}
+                >Cancel</MDBBtn>*/}
+                {this.renderButton("Cancel", "danger", true)}
                 {this.renderButton("Save")}
               </div>
             </form>
