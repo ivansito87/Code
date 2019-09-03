@@ -92,10 +92,6 @@ class MovieForm extends Form {
               {this.renderInput(3, "numberInStock", "Number in stock", "mouse-pointer", "text")}
               {this.renderInput(4, "dailyRentalRate", "Rate", "star", "text")}
               <div className="text-center float-left">
-              {/*  <MDBBtn
-                  className="warm-flame-gradient waves-float btn-floating"
-                  onClick={() => this.props.history.push("/movies")}
-                >Cancel</MDBBtn>*/}
                 {this.renderButton("Cancel", "danger", true)}
                 {this.renderButton("Save")}
               </div>

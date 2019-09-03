@@ -15,6 +15,7 @@ import MyListGroup from "../components/List/listGroup";
 import { getGenres } from "../services/fakeGenreService";
 import AbstractedTable from "./abstractedTable";
 import _ from "lodash";
+import SmallNavbar from "./smallNavbar/smallNavbar";
 
 class TablePage extends Component {
 
@@ -24,6 +25,8 @@ class TablePage extends Component {
     movie_count: movies.length,
     pageSize: 4,
     currentPage: 1,
+    selectedGenre: null,
+    searchQuery: "",
     genres: getGenres(),
     sortColumn: {
       path: "title",
@@ -35,9 +38,9 @@ class TablePage extends Component {
   // for a full stack app this could be getting a response from the DB
   componentDidMount() {
 
-    const genres = [{_id: "", name: "All Genres"}, ...getGenres()];
+    const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
 
-    this.setState({movies, genres});
+    this.setState({ movies, genres });
 
     // console.log("movies", this.state.movies);
   }
@@ -45,8 +48,8 @@ class TablePage extends Component {
   handleMovieRemove = (event, movie_id) => {
     event.preventDefault();
     const movies = this.state.movies.filter(movie => movie._id !== movie_id);
-    this.setState({movies, movie_count: movies.length}, () => {
-      if (this.state.movies.length === 0) this.setState({modal14: true})
+    this.setState({ movies, movie_count: movies.length }, () => {
+      if (this.state.movies.length === 0) this.setState({ modal14: true })
     })
   };
 
@@ -65,21 +68,39 @@ class TablePage extends Component {
     // grabbing the index of the movie that we passed
     const index = movies.indexOf(movie);
     //
-    movies[index] = {...movies[index]};
+    movies[index] = { ...movies[index] };
     movies[index].liked = !movies[index].liked;
-    this.setState({movies});
+    this.setState({ movies });
 
   };
 
   handlePageChange = page => {
 
-    this.setState({currentPage: page})
+    this.setState({ currentPage: page })
 
   };
 
   handleGenreSelect = (item) => {
 
-    this.setState({selectedGenre: item, currentPage: 1});
+    this.setState({ selectedGenre: item, currentPage: 1 });
+    console.log("Selecting Genre", item);
+
+  };
+
+  //=========== Handles Search Query from search box =================================================
+
+  handleSearch = query => {
+
+    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
+
+  };
+
+
+  //====================================================================================================
+
+  handleGenreSelect = (item) => {
+
+    this.setState({ selectedGenre: item, currentPage: 1 });
     console.log("Selecting Genre", item);
 
   };
@@ -100,14 +121,14 @@ class TablePage extends Component {
 
     */
 
-    this.setState({sortColumn}, () => {
+    this.setState({ sortColumn }, () => {
       console.log("State Updated");
     });
 
   };
 
   render() {
-    const {pageSize, currentPage, selectedGenre, movies: allMovies, sortColumn} = this.state;
+    const { pageSize, currentPage, selectedGenre, movies: allMovies, sortColumn } = this.state;
 
     //=========== First we filter =================================================
     // Used to filter all the movies on a give genre
@@ -124,46 +145,49 @@ class TablePage extends Component {
     const movies = paginate(sorted, currentPage, pageSize);
 
     return (
-      <MDBRow expand="md">
-        <MDBCol md="3">
-          <MyListGroup
-            items={this.state.genres}
-            selectedItem={this.state.selectedGenre}
-            onItemSelect={this.handleGenreSelect}/>
-        </MDBCol>
-        <MDBCol md="9">
-          <MDBCard narrow className="z-depth-1-half">
-            <MDBBtn color="purple" href="/movies/new">
-              Add movie
-            </MDBBtn>
-            <MDBCardHeader
-              className="view view-cascade gradient-card-header aqua-gradient d-flex justify-content-between align-items-center py-2 mx-4 mb-3 clearfix">
-              <div>
-                <PaginationPage
-                  itemsCount={filtered.length}
-                  pageSize={pageSize}
-                  onPageChange={this.handlePageChange}
-                  currentPage={currentPage}
-                  textProperty="name"
-                  valueProperty="_id"
+      <>
+        <SmallNavbar onChange={this.handleSearch}/>
+        <MDBRow expand="md">
+          <MDBCol md="3">
+            <MyListGroup
+              items={this.state.genres}
+              selectedItem={this.state.selectedGenre}
+              onItemSelect={this.handleGenreSelect}/>
+          </MDBCol>
+          <MDBCol md="9">
+            <MDBCard narrow className="z-depth-1-half">
+              <MDBBtn color="purple" href="/movies/new">
+                Add movie
+              </MDBBtn>
+              <MDBCardHeader
+                className="view view-cascade gradient-card-header aqua-gradient d-flex justify-content-between align-items-center py-2 mx-4 mb-3 clearfix">
+                <div>
+                  <PaginationPage
+                    itemsCount={filtered.length}
+                    pageSize={pageSize}
+                    onPageChange={this.handlePageChange}
+                    currentPage={currentPage}
+                    textProperty="name"
+                    valueProperty="_id"
+                  />
+                </div>
+                <a href={" "} className="h5 font-weight-bold black-text my-4">There are {filtered.length} movies in the
+                  database</a>
+              </MDBCardHeader>
+              <MDBCardBody className="elevation-demo-surface">
+                {this.state.modal14 && <ModalPage modal14={this.state.modal14} toggleModal={this.toggleModal}/>}
+                <AbstractedTable
+                  movies={movies}
+                  sortColumn={sortColumn}
+                  onLike={this.handleLike}
+                  onDelete={this.handleMovieRemove}
+                  onSort={this.handleSort}
                 />
-              </div>
-              <a href={" "} className="h5 font-weight-bold black-text my-4">There are {filtered.length} movies in the
-                database</a>
-            </MDBCardHeader>
-            <MDBCardBody className="elevation-demo-surface">
-              {this.state.modal14 && <ModalPage modal14={this.state.modal14} toggleModal={this.toggleModal}/>}
-              <AbstractedTable
-                movies={movies}
-                sortColumn={sortColumn}
-                onLike={this.handleLike}
-                onDelete={this.handleMovieRemove}
-                onSort={this.handleSort}
-              />
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
-      </MDBRow>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+      </>
     );
   }
 }
