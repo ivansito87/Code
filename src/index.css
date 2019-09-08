@@ -5,3 +5,7 @@ body {
 .font-weight-bold.text-light.font-weight-bold{
     color: aliceblue !important;
 }
+
+.form-control {
+    color: aliceblue !important;
+}

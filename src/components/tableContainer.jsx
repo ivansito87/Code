@@ -90,8 +90,10 @@ class TablePage extends Component {
   //=========== Handles Search Query from search box =================================================
 
   handleSearch = query => {
-
-    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
+    console.log("query", query);
+    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 }, () => {
+      console.log("this.state.query", this.state.query);
+    });
 
   };
 

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { MDBCol, MDBFormInline, MDBBtn, MDBNavLink, MDBNavbar, MDBCollapse, MDBNavbarNav } from
     "mdbreact";
+import SearchBox from "../common/searchBox";
 
 class SmallNavbar extends Component {
   state = {
@@ -26,12 +27,13 @@ class SmallNavbar extends Component {
           <Router>
             <MDBCollapse isOpen={this.state.collapsed} navbar>
               <MDBNavbarNav right onClick={this.handleNavbarClick}>
-                <MDBFormInline className="md-form mr-auto m-0">
+                <SearchBox handleSearch={this.props.handleSearch} />
+                {/*<MDBFormInline className="md-form mr-auto m-0">
                   <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
                   <MDBBtn outline color="white" size="sm" type="submit" className="mr-auto">
                     Search
                   </MDBBtn>
-                </MDBFormInline>
+                </MDBFormInline>*/}
               </MDBNavbarNav>
             </MDBCollapse>
           </Router>
